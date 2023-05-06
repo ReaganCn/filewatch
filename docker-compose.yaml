@@ -1,0 +1,21 @@
+version: "2.0"
+services:
+  client:
+    image: reagancn/filewatch:latest
+    container_name: bot-client
+    restart: on-failure
+    networks:
+    - filewatch-network
+    tty: true
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: on-failure
+    volumes:
+      - backend-mongodb:/data/db
+    networks:
+    - filewatch-network
+networks:
+  filewatch-network: {}
+volumes:
+  backend-mongodb:
