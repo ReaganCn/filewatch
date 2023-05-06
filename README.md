@@ -1,4 +1,4 @@
-<p align="center"><img src="etc/assets/gopher.svg" width="250"></p>
+<p align="center"><img src="etc/assets/gopher.png" width="250"></p>
 <p align="center">
   <a href="https://goreportcard.com/report/go.mongodb.org/mongo-driver"><img src="https://goreportcard.com/badge/go.mongodb.org/mongo-driver"></a>
   <!-- <a href="https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo"><img src="etc/assets/godev-mongo-blue.svg" alt="docs"></a>
