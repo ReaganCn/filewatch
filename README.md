@@ -8,7 +8,7 @@
 
 # FileWatch
 
-A file monitoring golang CLI service that can watch for modifications, creations and deletions of files and folders and send an event 
+A file monitoring golang CLI tool that can watch for modifications, creations and deletions of files and folders and send an event 
 
 -------------------------
 ## Requirements
@@ -18,6 +18,11 @@ A file monitoring golang CLI service that can watch for modifications, creations
 - MongoDB 3.6 and higher.
 
 -------------------------
+
+## Usage
+
+`filewatch set path your/file/path/here`
+
 ## Installation
 
 Make sure you have docker, and docker compose installed.
