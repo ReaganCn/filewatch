@@ -8,7 +8,7 @@
 
 # FileWatch
 
-A file monitoring golang CLI tool that can watch for modifications, creations and deletions of files and folders and send an event 
+A file monitoring golang command line tool that can watch for modifications, creations and deletions of files and folders and send an event 
 
 -------------------------
 ## Requirements
