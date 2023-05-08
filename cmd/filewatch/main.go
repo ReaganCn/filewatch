@@ -73,10 +73,3 @@ func exit(format string, a ...interface{}) {
 	fmt.Print("\n" + usage)
 	os.Exit(1)
 }
-
-var usage = `
-filewatch is a Go CLI tool that watches files and directories for changes.
-
-Commands:
-		[coming soon]
-`[1:]
