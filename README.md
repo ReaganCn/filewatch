@@ -31,20 +31,6 @@ Commands:
 
 ## Installation
 
-Make sure you have docker, and docker compose installed.
-
-Start the mongo db server with `docker run -d -p 27017:27017 --name mong-db mongo:latest`
-
-Clone the project and add the below environments to `.env` in the project root folder:
-```
-OPEN_AI_KEY="your-open-ai-key"
-TELEGRAM_BOT_TOKEN="your-telegram-bot-token"
-MONGO_URI="your-mongo-db-URI" or simply "mongodb://127.0.0.1:27017/"
-```
-
-Install packages with `go mod download`
-
-Execute `go run .`
 
 ## Contribution
 
