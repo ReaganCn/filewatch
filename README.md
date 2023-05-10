@@ -54,4 +54,4 @@ For help with the bot, for now, you are free to create an issue. Contribution de
 
 ## License
 
-The Telegram GPT Integration is licensed under the [GNU](LICENSE).
+This Golang filewatch project is licensed under the [GNU](LICENSE).
