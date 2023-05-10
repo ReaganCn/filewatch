@@ -32,7 +32,7 @@ func RunCLI(db *sql.DB) {
 		break
 
 	case "run":
-		run()
+		run(db)
 		break
 
 	default:
@@ -56,8 +56,21 @@ func set(path string, db *sql.DB) {
 	p.Insert(db)
 }
 
-func run() {
+func run(db *sql.DB) {
 	log.Println("Watching files...")
 
-	// TODO: Execute the file watcher here
+	// Initialize the path model
+	p := models.Path{}
+
+	// Get all paths from database
+	paths, _ := p.Get(db)
+
+	// Convert paths to string array
+	var pathsToWatch []string
+
+	for _, path := range paths {
+		pathsToWatch = append(pathsToWatch, path.Path)
+	}
+
+	Watch(pathsToWatch)
 }
