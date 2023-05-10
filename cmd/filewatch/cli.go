@@ -72,5 +72,6 @@ func run(db *sql.DB) {
 		pathsToWatch = append(pathsToWatch, path.Path)
 	}
 
+	// Execute the file watcher
 	Watch(pathsToWatch)
 }
