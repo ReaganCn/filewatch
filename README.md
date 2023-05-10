@@ -26,7 +26,7 @@ filewatch is a Go command-line tool that watches files and directories for chang
 
 Commands:
 		set --path <path>		Sets the path to the file to watch
-		run									Runs the file watcher
+		run				Runs the file watcher
 ```
 
 ## Installation
