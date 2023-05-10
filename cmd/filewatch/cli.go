@@ -1,13 +1,16 @@
 package main
 
 import (
+	"database/sql"
 	"flag"
 	"fmt"
 	"log"
 	"os"
+
+	models "github.com/reagancn/filewatch/pkg/database/models"
 )
 
-func FilewatchCLI() {
+func RunCLI(db *sql.DB) {
 
 	var path string
 
@@ -25,7 +28,7 @@ func FilewatchCLI() {
 	switch os.Args[1] {
 	case "set":
 		setfs.Parse(os.Args[2:])
-		set(path)
+		set(path, db)
 		break
 
 	case "run":
@@ -38,14 +41,19 @@ func FilewatchCLI() {
 	}
 }
 
-func set(path string) {
+func set(path string, db *sql.DB) {
+
+	// Initialize the path model
+	p := models.Path{Path: path}
+
 	// Check if required flags are set
 	if path == "" {
 		fmt.Println("Please provide a path to the file to watch")
 		os.Exit(1)
 	}
 
-	// TODO: Set the path to an sqlite database here
+	// Insert the path into the database
+	p.Insert(db)
 }
 
 func run() {
