@@ -34,7 +34,7 @@ Commands:
 
 ## Contribution
 
-For help with the bot, for now, you are free to create an issue. Contribution details are still work in progress.
+Contribution details and guidelines are still work in progress.
 
 -------------------------
 
