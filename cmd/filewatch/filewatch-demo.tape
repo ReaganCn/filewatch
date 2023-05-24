@@ -1,5 +1,6 @@
 Output examples/bubbletea/list-default.gif
 Set FontSize 16
+Set Height 600
 
 Hide
 Type "go build ."
