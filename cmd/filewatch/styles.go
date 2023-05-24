@@ -8,7 +8,7 @@ var quitStyle = lipgloss.NewStyle().
 	Width(22)
 
 var subtitleStyle = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#4B0082"))
+	Foreground(lipgloss.Color("#BF40BF"))
 
 var titleStyle = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#FAFAFA")).
