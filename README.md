@@ -10,7 +10,7 @@
 
 A file monitoring golang command line tool that can watch for modifications, creations and deletions of files and folders and send an event 
 
-<p align="center"><img src="etc/assets/demo.gif" width="250"></p>
+<p align="center"><img src="etc/assets/demo.gif"></p>
 
 -------------------------
 ## Requirements
