@@ -7,6 +7,7 @@ import (
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/reagancn/filewatch/pkg/utils"
 )
 
 // Uses bubbletea to create a CLI
@@ -15,8 +16,9 @@ type model struct {
 	textInput     textinput.Model
 	choices       []string // items on the to-do list
 	cursor        int      // which to-do list item our cursor is pointing at
-	selected      string   // which to-do items are selected
 	selectedIndex int      // the index of the selected item
+	step          int      // the current step
+	filePath      string   // the path to the file to monitor
 }
 
 func bubble() {
@@ -30,12 +32,9 @@ func bubble() {
 	}
 
 	// Assert the final tea.Model to our local model and print the choice.
-	if m, ok := m.(model); ok && m.selected != "" {
-		fmt.Printf("\n---\nYou chose: %s!\n", m.selected)
-
-		result := m.fileMonitorChoice(m.selectedIndex)
-
-		fmt.Println("Result: ", result)
+	if m, ok := m.(model); ok && m.selectedIndex != -1 {
+		fmt.Printf("\n---\nYou chose: %s!\n", m.selectedIndex)
+		fmt.Println("filePath: ", m.filePath)
 
 		// Save the result to the database
 	}
@@ -50,12 +49,14 @@ func initialModel() model {
 		// Initialize the text input
 		textInput: ti,
 		// Our to-do list is a grocery list
-		choices: []string{"Current directory", "Enter file path"},
+		choices: []string{"Current directory", "Pick file"},
 
 		// A map which indicates which choices are selected. We're using
 		// the  map like a mathematical set. The keys refer to the indexes
 		// of the `choices` slice, above.
-		selected: "",
+		selectedIndex: -1,
+
+		step: 1,
 	}
 }
 
@@ -93,9 +94,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		// The "enter" key and the spacebar (a literal space) toggle
 		// the selected state for the item that the cursor is pointing at.
-		case "enter", " ":
-			m.selected = m.choices[m.cursor]
+		case "enter":
+			// m.selected = m.choices[m.cursor]
 			m.selectedIndex = m.cursor
+			switch m.step {
+			case 1:
+				if m.selectedIndex == 0 {
+					m.filePath = utils.GetCurrentDirectory()
+				} else if m.selectedIndex == 1 {
+					m.filePath = m.textInput.Value()
+				}
+			}
+			m.step++
 			return m, tea.Quit
 		}
 
@@ -141,19 +151,10 @@ func (m model) fileMonitorChoice(index int) string {
 
 	switch index {
 	case 0:
-		return getCurrentDirectory()
+		return utils.GetCurrentDirectory()
 	case 1:
 		return ""
 	default:
 		return ""
 	}
-}
-
-func getCurrentDirectory() string {
-	dir, err := os.Getwd()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	return dir
 }
