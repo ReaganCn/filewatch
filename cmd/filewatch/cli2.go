@@ -12,6 +12,7 @@ import (
 // Uses bubbletea to create a CLI
 /* Create a model to track the state of our application */
 type model struct {
+	err           error
 	textInput     textinput.Model
 	choices       []string // items on the to-do list
 	cursor        int      // which to-do list item our cursor is pointing at
@@ -65,6 +66,7 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var err error
 	var cmd tea.Cmd
 
 	switch msg := msg.(type) {
@@ -96,11 +98,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			// m.selected = m.choices[m.cursor]
 			m.selectedIndex = m.cursor
-			m = StepsHandler(m)
+			m, err = StepsHandler(m)
 
 			return m, tea.Quit
 		}
 
+		m.err = err
 		m.textInput, cmd = m.textInput.Update(msg)
 		return m, cmd
 	}

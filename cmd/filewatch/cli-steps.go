@@ -1,23 +1,40 @@
 package main
 
-import "github.com/reagancn/filewatch/pkg/utils"
+import (
+	"log"
+	"os"
 
-func StepsHandler(m model) model {
+	"github.com/reagancn/filewatch/pkg/utils"
+)
+
+func StepsHandler(m model) (model, error) {
+	var err error
+
 	switch m.step {
 	case 1:
-		m = StepOne(m)
+		m, err = StepOne(m)
 	}
-	m.step++
 
-	return m
+	if err == nil {
+		m.step++
+	}
+
+	return m, err
 }
 
-func StepOne(m model) model {
+func StepOne(m model) (model, error) {
+	var err error
 
 	if m.selectedIndex == 0 {
 		m.filePath = utils.GetCurrentDirectory()
 	} else if m.selectedIndex == 1 {
 		m.filePath = m.textInput.Value()
 	}
-	return m
+
+	if m.filePath == "" {
+		log.Println("Failed to save path to file. Please try again.")
+		err = os.ErrInvalid
+	}
+
+	return m, err
 }
