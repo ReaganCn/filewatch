@@ -29,10 +29,14 @@ func StepOne(m model) (model, error) {
 	if m.selectedIndex == 0 {
 		m.filePath = utils.GetCurrentDirectory()
 	} else if m.selectedIndex == 1 {
+
+		//TODO: Add validation for the path
 		m.filePath = m.textInput.Value()
 	}
 
-	p := models.Path{Path: m.filePath}
+	quotedFilePath := utils.QuoteString(m.filePath)
+
+	p := models.Path{Path: quotedFilePath}
 
 	if m.filePath == "" {
 		log.Println("Failed to save path to file. Please try again.")
