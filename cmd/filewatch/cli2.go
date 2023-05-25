@@ -7,7 +7,6 @@ import (
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/reagancn/filewatch/pkg/utils"
 )
 
 // Uses bubbletea to create a CLI
@@ -49,7 +48,7 @@ func initialModel() model {
 		// Initialize the text input
 		textInput: ti,
 		// Our to-do list is a grocery list
-		choices: []string{"Current directory", "Pick file"},
+		choices: []string{"Current directory", "Enter path"},
 
 		// A map which indicates which choices are selected. We're using
 		// the  map like a mathematical set. The keys refer to the indexes
@@ -97,15 +96,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			// m.selected = m.choices[m.cursor]
 			m.selectedIndex = m.cursor
-			switch m.step {
-			case 1:
-				if m.selectedIndex == 0 {
-					m.filePath = utils.GetCurrentDirectory()
-				} else if m.selectedIndex == 1 {
-					m.filePath = m.textInput.Value()
-				}
-			}
-			m.step++
+			m = StepsHandler(m)
+
 			return m, tea.Quit
 		}
 
@@ -145,16 +137,4 @@ func (m model) View() string {
 	s.WriteString(quitStyle.Render("\n(press q to quit)\n"))
 
 	return s.String()
-}
-
-func (m model) fileMonitorChoice(index int) string {
-
-	switch index {
-	case 0:
-		return utils.GetCurrentDirectory()
-	case 1:
-		return ""
-	default:
-		return ""
-	}
 }
