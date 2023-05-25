@@ -11,6 +11,8 @@ func main() {
 	// // Initialize the database
 	db, err := sqlite.ConnectDB()
 
+	defer db.Close()
+
 	if err != nil {
 		log.Println("Error connecting to database")
 		log.Fatal(err)

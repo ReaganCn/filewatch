@@ -16,8 +16,6 @@ func ConnectDB() (*sql.DB, error) {
 		log.Fatal(err)
 	}
 
-	defer db.Close()
-
 	// Enable foreign key support
 	_, err = db.Exec("PRAGMA foreign_keys = ON;")
 	if err != nil {

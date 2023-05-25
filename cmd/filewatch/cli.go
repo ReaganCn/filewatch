@@ -20,10 +20,11 @@ type model struct {
 	selectedIndex int      // the index of the selected item
 	step          int      // the current step
 	filePath      string   // the path to the file to monitor
+	dbConn        *sql.DB  // the database connection
 }
 
 func StartCLI(db *sql.DB) {
-	p := tea.NewProgram(initialModel())
+	p := tea.NewProgram(initialModel(db))
 
 	// Run returns the model as a tea.Model.
 	m, err := p.Run()
@@ -40,7 +41,7 @@ func StartCLI(db *sql.DB) {
 	}
 }
 
-func initialModel() model {
+func initialModel(db *sql.DB) model {
 	ti := textinput.New()
 	ti.Focus()
 
@@ -57,6 +58,9 @@ func initialModel() model {
 		selectedIndex: -1,
 
 		step: 1,
+
+		// Initialize the database connection
+		dbConn: db,
 	}
 }
 
