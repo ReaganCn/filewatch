@@ -21,7 +21,7 @@ type model struct {
 	filePath      string   // the path to the file to monitor
 }
 
-func bubble() {
+func StartCLI() {
 	p := tea.NewProgram(initialModel())
 
 	// Run returns the model as a tea.Model.
